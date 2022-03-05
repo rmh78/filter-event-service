@@ -1,12 +1,17 @@
-@hostname = ubuntu-pi4
-@port = 8081
+#@hostname = ubuntu-pi4
+#@port = 8081
+@hostname = localhost
+@port = 8080
 @host = {{hostname}}:{{port}}
 
-###
+### get all
 GET http://{{host}}/filter-events
 
-###
-GET http://{{host}}/filter-events/1
+### get single
+GET http://{{host}}/filter-events/2
+
+### get last
+GET http://{{host}}/filter-events/-1
 
 ###
 POST http://{{host}}/filter-events

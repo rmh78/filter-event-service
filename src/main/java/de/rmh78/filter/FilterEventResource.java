@@ -30,6 +30,10 @@ public class FilterEventResource {
     @GET
     @Path("/{id}")
     public Uni<FilterEvent> getEventById(long id) {
+        if (id == -1) {
+            // find filter-event with max id
+            return FilterEvent.find("#FilterEvent.maxId").firstResult();
+        }
         return FilterEvent.findById(id);
     }
 
