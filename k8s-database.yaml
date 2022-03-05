@@ -1,0 +1,73 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: postgres
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-configuration
+  namespace: postgres
+  labels:
+    app: postgres
+data:
+  POSTGRES_DB: waterdb
+  POSTGRES_USER: water
+  POSTGRES_PASSWORD: filter
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+  namespace: postgres
+spec:
+  serviceName: postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:13.6
+        envFrom:
+        - configMapRef:
+            name: postgres-configuration
+        ports:
+        - containerPort: 5432
+          name: postgres-port
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/postgres/data
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      storageClassName: local-path
+      resources:
+        requests:
+          storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: postgres
+  labels:
+    app: postgres
+spec:
+  ports:
+  - name: postgres
+    port: 5432
+  clusterIP: None
+  selector:
+    app: postgres
+
+# kubectl exec -it -n postgres postgres-0 -- psql -h localhost -U water --password -p 5432 waterdb

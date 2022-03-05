@@ -1,0 +1,63 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: water-filter
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: filter-event-service
+  namespace: water-filter
+  labels:
+    app: filter-event-service
+spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: filter-event-service
+    template:
+      metadata:
+        labels:
+          app: filter-event-service
+      spec:
+        containers:
+        - name: filter-event-service
+          image: pi4-registry:5000/harald/filter-event-service:1.0.0-SNAPSHOT
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: filter-event-service
+  namespace: water-filter
+  labels:
+    app: filter-event-service
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: filter-event-service
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: filter-event-service
+  namespace: water-filter
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: filter-event-service
+                port:
+                  number: 8080
