@@ -1,6 +1,6 @@
 # Filter-Event Service
 
-This project contains a Quarkus REST service for the **filter-events** of my **osmosis water-filter**. The microcontroller of the water-filter will send all flushing and filtering events as HTTP REST calls to the service. The events are stored in a PostgreSQL database.
+This project contains a Quarkus REST service for the **filter-events** of my **osmosis water-filter**. The micro-controller of the water-filter will send all flushing and filtering events as HTTP REST calls to the service. The events are stored in a PostgreSQL database.
 
 Both the REST service and the PostgreSQL database are hosted on a **k3d Kubernetes cluster** which runs on my **Raspberry Pi4**. The k3s cluster comes with its own container registry.
 
@@ -11,16 +11,16 @@ Both the REST service and the PostgreSQL database are hosted on a **k3d Kubernet
 * Reactive Postgres Client
 * Docker Container Image
 
-## Commands
+## Build & Deploy to raspberry-pi
 
 ```sh
 # Java Build, Docker Build & Push to k3d registry
 mvn package
 
-# Deploy PostgreSQL database on kubernetes
+# Deploy PostgreSQL database on Kubernetes
 kubectl apply -f k8s-database.yaml
 
-# Deploy Quarkus service on kubernetes
+# Deploy Quarkus service on Kubernetes
 kubectl apply -f k8s-service.yaml
 ```
 
