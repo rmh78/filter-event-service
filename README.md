@@ -26,6 +26,14 @@ kubectl apply -f k8s-service.yaml
 
 ## k3d setup
 
+1. Software Prerequisites
+
+    * Ubuntu 20.04 LTS
+    * Docker <https://omar2cloud.github.io/rasp/rpidock/>
+    * Patch the `/boot/firmware/cmdline.txt` and add `cgroup_enable=cpuset cgroup_enable=memory cgroup_memory=1` to the end of the file
+    * k3d <https://k3d.io/>
+    * kubectl - <https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/>
+
 1. Setup a new k3d cluster on Raspberry Pi 4
 
     ```sh
@@ -53,3 +61,7 @@ kubectl apply -f k8s-service.yaml
     ```sh
     "insecure-registries" : ["pi4-registry:5000"]
     ```
+
+## Further Links
+
+* Great k3d tutorial: <https://ian-says.com/articles/k3d-k8s-kubernetes/>
