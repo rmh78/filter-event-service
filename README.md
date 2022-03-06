@@ -24,6 +24,10 @@ kubectl apply -f k8s-database.yaml
 kubectl apply -f k8s-service.yaml
 ```
 
+## Test
+
+Send the HTTP requests located in the file `src/test/resources/requests.http` using VSCode extension REST Client.
+
 ## k3d setup
 
 1. Software Prerequisites
