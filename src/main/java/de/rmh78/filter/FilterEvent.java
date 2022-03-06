@@ -1,7 +1,11 @@
 package de.rmh78.filter;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import io.quarkus.hibernate.reactive.panache.PanacheEntity;
 
@@ -10,4 +14,7 @@ import io.quarkus.hibernate.reactive.panache.PanacheEntity;
 public class FilterEvent extends PanacheEntity {
     public String name;
     public String message;
+
+    @CreationTimestamp
+    public Date timestamp;
 }
