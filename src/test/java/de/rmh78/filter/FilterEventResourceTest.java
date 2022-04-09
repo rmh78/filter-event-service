@@ -20,7 +20,7 @@ public class FilterEventResourceTest {
                 .statusCode(200)
                 .contentType("application/json")
                 .extract().response();
-        assertThat(response.jsonPath().getList("name")).containsExactlyInAnyOrder("test-name-1", "test-name-2");
+        assertThat(response.jsonPath().getList("endWeight")).containsExactlyInAnyOrder(140, 145);
     }
 
     @Test
@@ -28,14 +28,11 @@ public class FilterEventResourceTest {
         // create a new filter-event
         given()
                 .when()
-                .body("{\"name\" : \"my-filter-event\", \"message\" : \"created by unit-test\"}")
+                .body("{\"startWeight\" : 10, \"endWeight\" : 200, \"duration\" : 50, \"ppm\" : 6 }")
                 .contentType("application/json")
                 .post("/filter-events")
                 .then()
-                .statusCode(201)
-                .body(
-                        containsString("\"id\":"),
-                        containsString("\"name\":\"my-filter-event\""));
+                .statusCode(201);
 
         // list all filter-events and look for new created
         Response response = given()
@@ -44,7 +41,7 @@ public class FilterEventResourceTest {
                 .then()
                 .statusCode(200)
                 .extract().response();
-        assertThat(response.jsonPath().getList("name"))
-                .containsExactlyInAnyOrder("test-name-1", "test-name-2", "my-filter-event");
+        assertThat(response.jsonPath().getList("endWeight"))
+                .containsExactlyInAnyOrder(140, 145, 200);
     }
 }

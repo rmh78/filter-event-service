@@ -1,2 +1,2 @@
-INSERT INTO filterevent(id, name, message) VALUES (nextval('hibernate_sequence'), 'test-name-1', 'test-message-1');
-INSERT INTO filterevent(id, name, message) VALUES (nextval('hibernate_sequence'), 'test-name-2', 'test-message-2');
+INSERT INTO filterevent(id, startweight, endweight, duration, ppm) VALUES (nextval('hibernate_sequence'), 0, 140, 24, 3);
+INSERT INTO filterevent(id, startweight, endweight, duration, ppm) VALUES (nextval('hibernate_sequence'), 0, 145, 26, 4);

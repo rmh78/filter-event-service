@@ -69,3 +69,7 @@ Send the HTTP requests located in the file `src/test/resources/requests.http` us
 ## Further Links
 
 * Great k3d tutorial: <https://ian-says.com/articles/k3d-k8s-kubernetes/>
+
+## TODOs
+
+* Mount Raspberry Pi volume into k3d to keep DB persistence on cluster restart
