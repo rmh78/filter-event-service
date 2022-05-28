@@ -1,7 +1,7 @@
-#@hostname = ubuntu-pi4
-#@port = 8081
-@hostname = localhost
-@port = 8080
+@hostname = ubuntu-pi4
+@port = 8081
+#@hostname = localhost
+#@port = 8080
 @host = {{hostname}}:{{port}}
 
 ### get all
@@ -19,7 +19,7 @@ content-type: application/json
 
 {
     "startWeight": 0,
-    "endWeight": 210,
-    "duration": 34,
+    "endWeight": 1150,
+    "duration": 500,
     "ppm": 10
 }

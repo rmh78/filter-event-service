@@ -46,8 +46,11 @@ Send the HTTP requests located in the file `src/test/resources/requests.http` us
     cluster_name=pi4-cluster
     registry_name=pi4-registry
 
+    # create the directory on the host where we will persist the data
+    mkdir -p /tmp/k3dvol
+
     # create a new k3d cluster
-    k3d cluster create $cluster_name --api-port $raspberry_ip:6550 -p "8081:80@loadbalancer" --agents 2 --registry-create $registry_name:0.0.0.0:5000
+    k3d cluster create $cluster_name --volume /tmp/k3dvol:/tmp/k3dvol --api-port $raspberry_ip:6550 -p "8081:80@loadbalancer" --agents 2 --registry-create $registry_name:0.0.0.0:5000
 
     # get the kubeconfig - copy to the local machine
     k3d kubeconfig get -a
